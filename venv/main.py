@@ -15,13 +15,17 @@ def main():
 
     #create game loop
     while True:
-        # Render/update display
-        pygame.display.flip()
         
         # check if user closed window/make close button work        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        # fill screen with solid "black" color
+        screen.fill("black")
+        
+        # Render/update display
+        pygame.display.flip()
         
         # Update delta time
         dt = clock.tick(60) / 1000
