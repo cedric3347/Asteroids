@@ -3,19 +3,31 @@ from constants import*
 
 
 def main():
+    # initialize py.game
     pygame.init()
+        
+    #create GUI window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        
+    #create Time object
+    clock = pygame.time.Clock()
+    dt = 0
 
+    #create game loop
     while True:
+        # Render/update display
         pygame.display.flip()
+        
+        # check if user closed window/make close button work        
         for event in pygame.event.get():
-            if event.type ==pygame.QUIT:
+            if event.type == pygame.QUIT:
                 return
+        
+        # Update delta time
+        dt = clock.tick(60) / 1000
     
-    
-    #print("Starting Asteroids!")
-    #print(f"Screen width: {SCREEN_WIDTH}")
-    #print(f"Screen height: {SCREEN_HEIGHT}")
+        
+
 
 
 
