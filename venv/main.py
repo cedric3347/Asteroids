@@ -23,11 +23,11 @@ def main():
         
         # fill screen with solid "black" color
         screen.fill("black")
-        
-        # Render/update display
+
+        # render/update display
         pygame.display.flip()
         
-        # Update delta time
+        # limit framerate to 60fps and update delta time
         dt = clock.tick(60) / 1000
     
         
