@@ -2,6 +2,7 @@ from circleshape import*
 from constants import*
 
 
+
 # create Player class that inherits from CircleShape
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -10,9 +11,9 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         
         #create field "rotation" set to 0
-        self. rotation = 0
+        self.rotation = 0
 
-    # paste in the player class this triangle method
+    # paste in the player class this triangle methodASUS ROG Swift PG348Q 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
@@ -26,3 +27,19 @@ class Player(CircleShape):
         # It should take the screen object as a parameter, and call pygame.draw.polygon
         #self.screen = screen
         pygame.draw.polygon(screen, "white", self.triangle(), width=2)
+
+    
+    # add rotate feature
+    def rotate(self, dt):
+        self.rotation += PLAYER_TURN_SPEED * dt
+    
+    
+    
+    #updates movement of player
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_a]:
+            self.rotate(-dt)
+        if keys[pygame.K_d]:
+            self.rotate(dt)

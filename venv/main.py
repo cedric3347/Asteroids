@@ -25,6 +25,9 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
+        # update movment
+        player.update(dt)
+        
         # fill screen with solid "black" color
         screen.fill("black")
 
@@ -38,13 +41,6 @@ def main():
         dt = clock.tick(60) / 1000
     
         
-
-
-
-
-
-
-
 
 
 

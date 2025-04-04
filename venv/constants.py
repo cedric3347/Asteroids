@@ -8,3 +8,6 @@ ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
 
 # define the size of the player's ship
 PLAYER_RADIUS = 20
+
+# players turn speed
+PLAYER_TURN_SPEED = 300
