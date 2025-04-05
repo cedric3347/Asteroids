@@ -1,8 +1,10 @@
+import sys
 import pygame
 from constants import*
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+
 
 
 def main():
@@ -43,6 +45,10 @@ def main():
         # update movment
         for sprite in updatable:
             sprite.update(dt)
+
+        for asteroid in asteroids:
+            if player.collision_check(asteroid):
+                sys.exit("Game over!")
         
         # fill screen with solid "black" color
         screen.fill("black")
