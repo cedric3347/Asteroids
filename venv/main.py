@@ -1,17 +1,23 @@
 import pygame
 from constants import*
-from player import*
+from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 
 def main():
     # initialize py.game
     pygame.init()
 
+    #set up groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
     # set groups as containers
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
         
     #create GUI window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -22,6 +28,9 @@ def main():
 
     #instantiate Player object
     player = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
+    
+    #instantiate asteroidfield
+    asteroidfield = AsteroidField()
 
     #create game loop
     while True:
@@ -32,15 +41,15 @@ def main():
                 return
         
         # update movment
-        for player in updatable:
-            player.update(dt)
+        for sprite in updatable:
+            sprite.update(dt)
         
         # fill screen with solid "black" color
         screen.fill("black")
 
         # re-render the player on the screen each frame
-        for player in drawable:
-            player.draw(screen)
+        for sprite in drawable:
+            sprite.draw(screen)
 
         # render/update display
         pygame.display.flip()
