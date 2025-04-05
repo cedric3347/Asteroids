@@ -6,6 +6,12 @@ from player import*
 def main():
     # initialize py.game
     pygame.init()
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # set groups as containers
+    Player.containers = (updatable, drawable)
         
     #create GUI window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -26,13 +32,15 @@ def main():
                 return
         
         # update movment
-        player.update(dt)
+        for player in updatable:
+            player.update(dt)
         
         # fill screen with solid "black" color
         screen.fill("black")
 
-        # re-render the player on the screen each frame,
-        player.draw(screen)
+        # re-render the player on the screen each frame
+        for player in drawable:
+            player.draw(screen)
 
         # render/update display
         pygame.display.flip()
