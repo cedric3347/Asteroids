@@ -50,9 +50,17 @@ def main():
         for sprite in updatable:
             sprite.update(dt)
 
+        # check for asteroid collision with ship
         for asteroid in asteroids:
             if player.collision_check(asteroid):
                 sys.exit("Game over!")
+            
+            #check for bullet collision with asteroid and destroy them if they collide
+            for bullet in shots:
+                if asteroid.collision_check(bullet):
+                    asteroid.kill()
+                    bullet.kill()
+
         
         # fill screen with solid "black" color
         screen.fill("black")
