@@ -58,8 +58,9 @@ def main():
             #check for bullet collision with asteroid and destroy them if they collide
             for bullet in shots:
                 if asteroid.collision_check(bullet):
-                    asteroid.kill()
                     bullet.kill()
+                    # splits asteroids
+                    asteroid.split()
 
         
         # fill screen with solid "black" color
