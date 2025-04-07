@@ -20,3 +20,6 @@ SHOT_RADIUS = 5
 
 # bullet speed
 PLAYER_SHOOT_SPEED = 500
+
+# adding shoot cooldown timer
+PLAYER_SHOOT_COOLDOWN = 0.3

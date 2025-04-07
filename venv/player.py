@@ -14,6 +14,9 @@ class Player(CircleShape):
         
         #create field "rotation" set to 0
         self.rotation = 0
+
+        #adding timer for shooting cooldown
+        self.shoot_timer = 0
    
     # paste in the player class this triangle method 
     def triangle(self):
@@ -42,21 +45,32 @@ class Player(CircleShape):
     
     
     def shoot(self):
-        # Create a direction vector pointing "up" (0, 1) for pygame coordinates
-        # Rotate it to match the player's direction
-        direction = pygame.Vector2(0, 1).rotate(self.rotation)
-          
-        # Scale it by the shoot speed
-        velocity = direction * PLAYER_SHOOT_SPEED
-        
-        # Create a new shot
-        Shot(self.position.x, self.position.y, velocity)
+        # limit shooting by using the timer
+        if self.shoot_timer <= 0:
+            
+            # Create a direction vector pointing "up" (0, 1) for pygame coordinates
+            # Rotate it to match the player's direction
+            direction = pygame.Vector2(0, 1).rotate(self.rotation)
+            
+            # Scale it by the shoot speed
+            velocity = direction * PLAYER_SHOOT_SPEED
+            
+            # Create a new shot
+            Shot(self.position.x, self.position.y, velocity)
 
+            # reset the timer for each shot
+            self.shoot_timer = PLAYER_SHOOT_COOLDOWN
 
 
 
     #updates movement of player
     def update(self, dt):
+        
+        # decrease shoot timer by dt every frame
+        if self.shoot_timer > 0:
+            self.shoot_timer -= dt
+        
+        
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
