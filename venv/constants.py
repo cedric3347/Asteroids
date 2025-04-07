@@ -14,3 +14,9 @@ PLAYER_TURN_SPEED = 300
 
 # players speed
 PLAYER_SPEED = 200
+
+# bullet size
+SHOT_RADIUS = 5
+
+# bullet speed
+PLAYER_SHOOT_SPEED = 500
