@@ -17,8 +17,14 @@ class Player(CircleShape):
 
         # adding timer for shooting cooldown
         self.shoot_timer = 0
+
+        # adding invulnerablity frames
+        self.invulnerable = True
+        self.invulnerable_timer = 2.0  # 2 seconds of invulnerability
+        self.visible = True  # For blinking effect
+        self.blink_timer = 0.1  # Controls blink speed
    
-    # paste in the player class this triangle method 
+    # makes circle player look like a triangle 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
@@ -28,9 +34,13 @@ class Player(CircleShape):
         return [a, b, c]
     
     def draw(self, screen):
-        # It should take the screen object as a parameter, and call pygame.draw.polygon
-        pygame.draw.polygon(screen, "white", self.triangle(), width=2)
+        # only draws if player is visible
+        if self.visible:
+            
+            # It should take the screen object as a parameter, and call pygame.draw.polygon
+            pygame.draw.polygon(screen, "white", self.triangle(), width=2)
 
+        
     
     # add rotate feature
     def rotate(self, dt):
@@ -68,6 +78,30 @@ class Player(CircleShape):
         if self.shoot_timer > 0:
             self.shoot_timer -= dt
         
+         # Handle invulnerability
+        if self.invulnerable:
+            self.invulnerable_timer -= dt
+            
+            # Blink effect
+            self.blink_timer -= dt
+            if self.blink_timer <= 0:
+                self.visible = not self.visible  # Toggle visibility
+                self.blink_timer = 0.1  # Reset blink timer
+            
+            if self.invulnerable_timer <= 0:
+                self.invulnerable = False
+                self.visible = True  # Make sure player is visible when invulnerability ends
+        
+          # Screen wrapping logic
+        if self.position.x < 0:
+            self.position.x = SCREEN_WIDTH
+        elif self.position.x > SCREEN_WIDTH:
+            self.position.x = 0
+            
+        if self.position.y < 0:
+            self.position.y = SCREEN_HEIGHT
+        elif self.position.y > SCREEN_HEIGHT:
+            self.position.y = 0
         
         keys = pygame.key.get_pressed()
 
