@@ -2,6 +2,8 @@ import pygame
 from circleshape import CircleShape
 from constants import*
 import random
+import math
+from pygame.math import Vector2
 
 
 
@@ -9,11 +11,25 @@ import random
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
+        
+        # Generate vertices for a decagon
+        self.vertices = []
+        for i in range(10):
+            angle = math.radians(i * 36)  # 360 / 10 = 36 degrees per segment
+            # Add some randomness for irregular asteroids
+            distance = radius * (0.8 + random.random() * 0.4)
+            self.vertices.append((math.cos(angle) * distance, math.sin(angle) * distance))
        
 
      # draw the asteroid   
     def draw(self, screen):
-        pygame.draw.circle(screen, "white", self.position, self.radius, width= 2)
+        # Create points list for the polygon
+        points = []
+        for vertex in self.vertices:
+            points.append((self.position.x + vertex[0], self.position.y + vertex[1]))
+        
+        # Draw the polygon instead of a circle
+        pygame.draw.polygon(screen, "blue", points, width=2)
 
     # moves in a straight line at a constant speed each frame 
     def update(self, dt):
