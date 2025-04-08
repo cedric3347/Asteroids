@@ -3,15 +3,14 @@ from constants import SCREEN_WIDTH
 
 
 
- # display lives on screen 
+# display lives on screen 
 def draw_lives(screen, lives):
     for i in range(lives):
-        # Draw small ship icons in a row
+        # draw small ship icons in a row
         x = 20 + (i * 30)  # Space them 30 pixels apart
         y = 20
         
-        # Draw a mini version of your ship at this position
-        # If your ship is a triangle, something like:
+        # draws a mini version of your ship at this position
         points = [(x, y-10), (x+7, y+10), (x-7, y+10)]
         pygame.draw.polygon(screen, "white", points, width=1)
 

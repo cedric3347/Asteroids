@@ -20,7 +20,7 @@ class Player(CircleShape):
 
         # adding invulnerablity frames
         self.invulnerable = True
-        self.invulnerable_timer = 2.0  # 2 seconds of invulnerability
+        self.invulnerable_timer = 2.5  # 2.5 seconds of invulnerability
         self.visible = True  # For blinking effect
         self.blink_timer = 0.1  # Controls blink speed
    
@@ -37,7 +37,7 @@ class Player(CircleShape):
         # only draws if player is visible
         if self.visible:
             
-            # It should take the screen object as a parameter, and call pygame.draw.polygon
+            # it should take the screen object as a parameter, and call pygame.draw.polygon
             pygame.draw.polygon(screen, "white", self.triangle(), width=2)
 
         
@@ -56,14 +56,14 @@ class Player(CircleShape):
         # limit shooting by using the timer
         if self.shoot_timer <= 0:
             
-            # Create a direction vector pointing "up" (0, 1) for pygame coordinates
-            # Rotate it to match the player's direction
+            # create a direction vector pointing "up" (0, 1) for pygame coordinates
+            # rotate it to match the player's direction
             direction = pygame.Vector2(0, 1).rotate(self.rotation)
             
-            # Scale it by the shoot speed
+            # scale it by the shoot speed
             velocity = direction * PLAYER_SHOOT_SPEED
             
-            # Create a new shot
+            # create a new shot
             Shot(self.position.x, self.position.y, velocity)
 
             # reset the timer for each shot
@@ -78,21 +78,21 @@ class Player(CircleShape):
         if self.shoot_timer > 0:
             self.shoot_timer -= dt
         
-         # Handle invulnerability
+         # handle invulnerability
         if self.invulnerable:
             self.invulnerable_timer -= dt
             
-            # Blink effect
+            # blink effect
             self.blink_timer -= dt
             if self.blink_timer <= 0:
-                self.visible = not self.visible  # Toggle visibility
-                self.blink_timer = 0.1  # Reset blink timer
+                self.visible = not self.visible  # toggle visibility
+                self.blink_timer = 0.1  # reset blink timer
             
             if self.invulnerable_timer <= 0:
                 self.invulnerable = False
-                self.visible = True  # Make sure player is visible when invulnerability ends
+                self.visible = True  # makes sure player is visible when invulnerability ends
         
-          # Screen wrapping logic
+          # screen wrapping logic
         if self.position.x < 0:
             self.position.x = SCREEN_WIDTH
         elif self.position.x > SCREEN_WIDTH:

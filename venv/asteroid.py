@@ -12,18 +12,18 @@ class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
         
-        # Generate vertices for a decagon
+        # generate vertices for a decagon
         self.vertices = []
         for i in range(10):
             angle = math.radians(i * 36)  # 360 / 10 = 36 degrees per segment
-            # Add some randomness for irregular asteroids
+            # adds some randomness for irregular asteroids
             distance = radius * (0.8 + random.random() * 0.4)
             self.vertices.append((math.cos(angle) * distance, math.sin(angle) * distance))
        
 
      # draw the asteroid   
     def draw(self, screen):
-        # Create points list for the polygon
+        # create points list for the polygon
         points = []
         for vertex in self.vertices:
             points.append((self.position.x + vertex[0], self.position.y + vertex[1]))
