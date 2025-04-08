@@ -13,6 +13,15 @@ def main():
     # initialize py.game
     pygame.init()
 
+    try:
+        # load and scale the background image to match screen size
+        background_img = pygame.image.load("assets/pexels-instawally-176851.jpg")
+        background_img = pygame.transform.scale(background_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    
+    except pygame.error:
+        print("Could not load background image. Using black background instead.")
+        background_img = None
+
     # set up groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -105,7 +114,10 @@ def main():
 
         
         # fill screen with solid "black" color
-        screen.fill("black")
+        if background_img:
+            screen.blit(background_img, (0, 0))
+        else:
+            screen.fill("black")
 
         if not game_over:
         
