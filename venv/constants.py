@@ -23,3 +23,9 @@ PLAYER_SHOOT_SPEED = 500
 
 # adding shoot cooldown timer
 PLAYER_SHOOT_COOLDOWN = 0.3
+
+# adding lives counter
+PLAYER_LIVES = 3
+
+# adding score counter
+PLAYER_SCORE = 0

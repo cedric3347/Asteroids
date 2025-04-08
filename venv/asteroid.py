@@ -37,10 +37,10 @@ class Asteroid(CircleShape):
 
     
     def split(self):
-        #destroys asteroid
+        # destroys asteroid
         self.kill()
 
-        #spawns smaller asteroids if less than or equal to ASTEROID_MIN_RADIUS
+        # spawns smaller asteroids if less than or equal to ASTEROID_MIN_RADIUS
         if self.radius <= ASTEROID_MIN_RADIUS:
            return
         
@@ -51,11 +51,11 @@ class Asteroid(CircleShape):
 
         new_radius = self.radius - ASTEROID_MIN_RADIUS
 
-        #asteroid 1
+        # asteroid 1
         spawn_asteroid1 = Asteroid(self.position.x, self.position.y, new_radius)
         spawn_asteroid1.velocity = new_velocity1 * 1.2
         
-        #asteroid 2
+        # asteroid 2
         spawn_asteroid2 = Asteroid(self.position.x, self.position.y, new_radius)
         spawn_asteroid2.velocity = new_velocity2 * 1.2
 

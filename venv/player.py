@@ -12,10 +12,10 @@ class Player(CircleShape):
         #call parent class constructor and pass in PLAYER_RADIUS
         super().__init__(x, y, PLAYER_RADIUS)
         
-        #create field "rotation" set to 0
-        self.rotation = 0
+        # create field "rotation" set to 0
+        self.rotation = 180
 
-        #adding timer for shooting cooldown
+        # adding timer for shooting cooldown
         self.shoot_timer = 0
    
     # paste in the player class this triangle method 
@@ -28,9 +28,7 @@ class Player(CircleShape):
         return [a, b, c]
     
     def draw(self, screen):
-        # sub-classes must override the draw method of CircleShape.
         # It should take the screen object as a parameter, and call pygame.draw.polygon
-        #self.screen = screen
         pygame.draw.polygon(screen, "white", self.triangle(), width=2)
 
     

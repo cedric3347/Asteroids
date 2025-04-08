@@ -5,6 +5,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+import hud
 
 
 
@@ -12,7 +13,7 @@ def main():
     # initialize py.game
     pygame.init()
 
-    #set up groups
+    # set up groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
@@ -25,20 +26,26 @@ def main():
     AsteroidField.containers = (updatable,)
     Shot.containers = (shots, updatable, drawable)
         
-    #create GUI window
+    # create GUI window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         
-    #create Time object
+    # create Time object
     clock = pygame.time.Clock()
     dt = 0
 
-    #instantiate Player object
+    # instantiate Player object
     player = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
     
-    #instantiate asteroidfield
+    # instantiate asteroidfield
     asteroidfield = AsteroidField()
 
-    #create game loop
+    # instantiate Player Lives
+    lives = PLAYER_LIVES
+
+    # instantiate score
+    score = PLAYER_SCORE
+
+    # create game loop
     while True:
         
         # check if user closed window/make close button work        
@@ -53,19 +60,39 @@ def main():
         # check for asteroid collision with ship
         for asteroid in asteroids:
             if player.collision_check(asteroid):
+                player.kill()
+                lives -= 1
+                player = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
+            
+            if lives <= 0:
                 sys.exit("Game over!")
             
             #check for bullet collision with asteroid and destroy them if they collide
             for bullet in shots:
                 if asteroid.collision_check(bullet):
                     bullet.kill()
+                    # add score based on asteroid size
+                    if asteroid.radius > ASTEROID_MIN_RADIUS * 2:  
+                        score += 100
+                    elif asteroid.radius > ASTEROID_MIN_RADIUS:  
+                        score += 150
+                    else:      
+                        score += 200
+
                     # splits asteroids
                     asteroid.split()
 
         
         # fill screen with solid "black" color
         screen.fill("black")
+        
+        # draw lives on screen
+        hud.draw_lives(screen, lives)
 
+        # draw score on screen
+        hud.draw_score(screen, score)
+
+       
         # re-render the player on the screen each frame
         for sprite in drawable:
             sprite.draw(screen)
@@ -74,25 +101,7 @@ def main():
         pygame.display.flip()
         
         # limit framerate to 60fps and update delta time
-        dt = clock.tick(60) / 1000
-    
-         #updates movement of player
-    def update(self, dt):
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_a]:
-            self.rotate(-dt)
-        if keys[pygame.K_d]:
-            self.rotate(dt)
-
-        if keys[pygame.K_w]:
-            self.move(dt)
-        if keys[pygame.K_s]:
-            self.move(-dt)
-
-    # adding space to shoot
-        if keys[pygame.K_SPACE]:
-            self.shoot()
+        dt = clock.tick(60) / 1000      
 
 
 
